@@ -1,0 +1,97 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build release binary
+        run: swift build -c release
+
+      - name: Package artifacts
+        run: |
+          set -euo pipefail
+
+          BIN_NAME="MouseRebinderApp"
+          APP_NAME="MouseRebinder"
+          VERSION="${GITHUB_REF_NAME#v}"
+          if [[ -z "${VERSION}" || "${VERSION}" == "${GITHUB_REF_NAME}" ]]; then
+            VERSION="0.0.0"
+          fi
+
+          mkdir -p dist
+
+          cp ".build/release/${BIN_NAME}" "dist/${BIN_NAME}"
+
+          # Raw binary package
+          (cd dist && zip -r "MouseRebinder-macos-binary.zip" "${BIN_NAME}")
+
+          # Build a minimal .app bundle
+          mkdir -p "dist/${APP_NAME}.app/Contents/MacOS"
+          cp "dist/${BIN_NAME}" "dist/${APP_NAME}.app/Contents/MacOS/${BIN_NAME}"
+          chmod +x "dist/${APP_NAME}.app/Contents/MacOS/${BIN_NAME}"
+
+          cat > "dist/${APP_NAME}.app/Contents/Info.plist" <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>CFBundleName</key>
+            <string>MouseRebinder</string>
+            <key>CFBundleDisplayName</key>
+            <string>MouseRebinder</string>
+            <key>CFBundleIdentifier</key>
+            <string>io.github.dratwa.mouse-rebinder</string>
+            <key>CFBundlePackageType</key>
+            <string>APPL</string>
+            <key>CFBundleVersion</key>
+            <string>${VERSION}</string>
+            <key>CFBundleShortVersionString</key>
+            <string>${VERSION}</string>
+            <key>CFBundleExecutable</key>
+            <string>MouseRebinderApp</string>
+            <key>LSMinimumSystemVersion</key>
+            <string>13.0</string>
+            <key>NSAppleEventsUsageDescription</key>
+            <string>MouseRebinder needs input access to remap mouse buttons to keyboard keys.</string>
+          </dict>
+          </plist>
+          PLIST
+
+          (cd dist && zip -r "MouseRebinder.app.zip" "${APP_NAME}.app")
+
+          # Build unsigned installer package (.pkg)
+          pkgbuild \
+            --component "dist/${APP_NAME}.app" \
+            --install-location "/Applications" \
+            --identifier "io.github.dratwa.mouse-rebinder" \
+            --version "${VERSION}" \
+            "dist/MouseRebinder-${VERSION}.pkg"
+
+          # Checksums
+          shasum -a 256 \
+            dist/MouseRebinder-macos-binary.zip \
+            dist/MouseRebinder.app.zip \
+            "dist/MouseRebinder-${VERSION}.pkg" > dist/SHA256SUMS.txt
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/MouseRebinder-macos-binary.zip
+            dist/MouseRebinder.app.zip
+            dist/*.pkg
+            dist/SHA256SUMS.txt
+          generate_release_notes: true

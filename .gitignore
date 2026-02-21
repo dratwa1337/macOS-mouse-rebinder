@@ -1,0 +1,15 @@
+# SwiftPM build artifacts
+.build/
+.swiftpm/
+
+# Xcode / Apple tooling
+DerivedData/
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
