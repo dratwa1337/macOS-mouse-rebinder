@@ -1,4 +1,4 @@
-# MouseRebinder
+# 🖱️ MouseRebinder
 
 MouseRebinder is a lightweight macOS utility that remaps extra mouse buttons to keyboard keys.
 
@@ -9,14 +9,14 @@ It supports:
 
 Each mouse button can be mapped to one keyboard key, or set to `None`.
 
-## Features
+## 🪴 Features
 
 - Simple native macOS UI (SwiftUI)
 - Per-button mapping for Mouse3/Mouse4/Mouse5
 - Persistent settings (`UserDefaults`)
 - Global input handling through macOS event tap
 
-## How This Differs From Typical Remappers
+## 🤔 How This Differs From Typical Remappers
 
 Many remapping tools focus on keyboard-only triggers or treat mouse actions separately. MouseRebinder is specifically designed to fire mapped key presses directly from Mouse3/Mouse4/Mouse5 input events, so the mapped hotkey can still trigger while the mouse is actively moving.
 
@@ -28,7 +28,7 @@ Many remapping tools focus on keyboard-only triggers or treat mouse actions sepa
 - `Space`, `Return`, `Escape`, `Tab`
 - Arrow keys
 
-## Why permissions are required
+## 🧐 Why permissions are required
 
 macOS blocks global input interception by default. MouseRebinder needs **Accessibility** permission to:
 - observe global mouse button events
@@ -36,7 +36,7 @@ macOS blocks global input interception by default. MouseRebinder needs **Accessi
 
 Without this permission, remapping will not work.
 
-## Installation
+## 📦 Installation
 
 ### Option 1: Download from GitHub Releases
 
@@ -83,12 +83,12 @@ make run
 
 Configuration is saved automatically and restored on next launch.
 
-## Notes
+## 📝 Notes
 
 - Function keys may be handled by macOS media-key settings depending on your keyboard preferences.
 - Unsigned binaries/apps/pkg installers may show a Gatekeeper warning on first launch/install.
 
-## Gaming / Anti-Cheat Disclaimer
+## ☢️ Gaming / Anti-Cheat Disclaimer
 
 Use this tool at your own risk in online games.
 
@@ -96,7 +96,7 @@ The repository owner does not guarantee that using this app will be considered s
 
 For Tibia specifically, this tool maps one mouse button press to one keyboard key press, which should generally align better with typical one-input-to-one-input rules. However, there is still risk, and you are fully responsible for how you use it.
 
-## Development
+## 👩‍💻 Development
 
 Requirements:
 - macOS 13+
@@ -108,10 +108,10 @@ Build:
 make build
 ```
 
-## License
+## 📜 License
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE).
 
-## Authorship / AI Assistance
+## ☺️ Authorship / AI Assistance
 
 This project was created with significant AI assistance using OpenAI's GPT-5 Codex coding agent workflow. Human supervision, testing, and publishing decisions remain the responsibility of the repository owner.
