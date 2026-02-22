@@ -9,6 +9,8 @@ It supports:
 
 Each mouse button can be mapped to one keyboard key, or set to `None`.
 
+![Application Preview](img/application.png)
+
 ## 🪴 Features
 
 - Simple native macOS UI (SwiftUI)
