@@ -36,7 +36,6 @@ struct KeyOption: Identifiable, Hashable {
         KeyOption(id: "x", label: "X", keyCode: 7),
         KeyOption(id: "y", label: "Y", keyCode: 16),
         KeyOption(id: "z", label: "Z", keyCode: 6),
-        KeyOption(id: "0", label: "0", keyCode: 29),
         KeyOption(id: "1", label: "1", keyCode: 18),
         KeyOption(id: "2", label: "2", keyCode: 19),
         KeyOption(id: "3", label: "3", keyCode: 20),
@@ -46,10 +45,7 @@ struct KeyOption: Identifiable, Hashable {
         KeyOption(id: "7", label: "7", keyCode: 26),
         KeyOption(id: "8", label: "8", keyCode: 28),
         KeyOption(id: "9", label: "9", keyCode: 25),
-        KeyOption(id: "space", label: "Space", keyCode: 49),
-        KeyOption(id: "return", label: "Return", keyCode: 36),
-        KeyOption(id: "escape", label: "Escape", keyCode: 53),
-        KeyOption(id: "tab", label: "Tab", keyCode: 48),
+        KeyOption(id: "0", label: "0", keyCode: 29),
         KeyOption(id: "f1", label: "F1", keyCode: 122),
         KeyOption(id: "f2", label: "F2", keyCode: 120),
         KeyOption(id: "f3", label: "F3", keyCode: 99),
@@ -62,10 +58,18 @@ struct KeyOption: Identifiable, Hashable {
         KeyOption(id: "f10", label: "F10", keyCode: 109),
         KeyOption(id: "f11", label: "F11", keyCode: 103),
         KeyOption(id: "f12", label: "F12", keyCode: 111),
-        KeyOption(id: "left", label: "Left Arrow", keyCode: 123),
-        KeyOption(id: "right", label: "Right Arrow", keyCode: 124),
-        KeyOption(id: "down", label: "Down Arrow", keyCode: 125),
-        KeyOption(id: "up", label: "Up Arrow", keyCode: 126)
+        KeyOption(id: "control", label: "Control ⌃", keyCode: 59),
+        KeyOption(id: "option", label: "Option ⌥", keyCode: 58),
+        KeyOption(id: "command", label: "Command ⌘", keyCode: 55),
+        KeyOption(id: "tilde", label: "Tilde (~)", keyCode: 50),
+        KeyOption(id: "minus", label: "Minus (-)", keyCode: 27),
+        KeyOption(id: "equal", label: "Equal (=)", keyCode: 24),
+        KeyOption(id: "return", label: "Return", keyCode: 36),
+        KeyOption(id: "escape", label: "Escape", keyCode: 53),
+        KeyOption(id: "shift", label: "Shift", keyCode: 56),
+        KeyOption(id: "space", label: "Space", keyCode: 49),
+        KeyOption(id: "tab", label: "Tab", keyCode: 48),
+        KeyOption(id: "fn", label: "Fn", keyCode: 63)
     ]
 
     static func byID(_ id: String) -> KeyOption {
@@ -309,6 +313,7 @@ struct ContentView: View {
                     .font(.subheadline)
                     .fontWeight(.semibold)
             }
+            .frame(maxWidth: 340, alignment: .leading)
 
             mappingPicker(title: "Mouse3 (scroll click)", selection: $store.mouse3KeyID)
             mappingPicker(title: "Mouse4", selection: $store.mouse4KeyID)
@@ -334,7 +339,7 @@ struct ContentView: View {
                 }
             }
             .labelsHidden()
-            .frame(maxWidth: .infinity)
+            .frame(maxWidth: 450)
         }
     }
 }
