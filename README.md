@@ -50,7 +50,7 @@ Without this permission, remapping will not work.
 ### Option 2: Build locally
 
 ```bash
-swift build -c release
+make release
 ```
 
 Run the built executable:
@@ -62,14 +62,14 @@ Run the built executable:
 Or run in debug directly:
 
 ```bash
-swift run MouseRebinderApp
+make run
 ```
 
 ## First Launch: Grant Accessibility Permission
 
 1. Launch MouseRebinder once.
 2. Open **System Settings** -> **Privacy & Security** -> **Accessibility**.
-3. Enable permission for MouseRebinder (or your terminal if launched via `swift run`).
+3. Enable permission for MouseRebinder (or your terminal if launched via `make run`).
 4. Restart the app if remapping does not activate immediately.
 
 ## Configuration
@@ -105,7 +105,7 @@ Requirements:
 Build:
 
 ```bash
-swift build
+make build
 ```
 
 ## License
