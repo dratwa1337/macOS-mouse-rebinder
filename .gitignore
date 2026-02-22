@@ -13,3 +13,6 @@ DerivedData/
 
 # Logs
 *.log
+
+# IDE specific
+.codex/
