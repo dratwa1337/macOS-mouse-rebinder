@@ -84,10 +84,23 @@ make run
 
 Configuration is saved automatically and restored on next launch.
 
+## ⚠️ Gatekeeper Warning (Unsigned App)
+
+Since MouseRebinder is not signed with an Apple Developer certificate, macOS will block it on first launch with a message like:
+
+> "MouseRebinder" is damaged and can't be opened.
+
+To fix this, run the following command after installing:
+
+```bash
+xattr -cr /Applications/MouseRebinder.app
+```
+
+Alternatively, you can right-click the app → **Open** → click **Open** in the confirmation dialog.
+
 ## 📝 Notes
 
 - Function keys may be handled by macOS media-key settings depending on your keyboard preferences.
-- Unsigned binaries and apps may show a Gatekeeper warning on first launch.
 
 ## ☢️ Gaming / Anti-Cheat Disclaimer
 
