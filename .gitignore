@@ -16,3 +16,4 @@ DerivedData/
 
 # IDE specific
 .codex/
+.vscode/

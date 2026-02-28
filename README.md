@@ -44,10 +44,9 @@ Without this permission, remapping will not work.
 
 1. Open the latest release.
 2. Download either:
-- `MouseRebinder-macos-binary.zip` (raw executable)
-- `MouseRebinder.app.zip` (double-clickable app bundle)
-- `MouseRebinder-<version>.pkg` (installer package for `/Applications`)
-3. Unzip and run.
+- `MouseRebinder-<version>.dmg` (recommended — drag-and-drop into Applications)
+- `MouseRebinder-macos-binary.zip` (raw executable for advanced users)
+3. Open the `.dmg`, drag **MouseRebinder** into **Applications**, and launch.
 
 ### Option 2: Build locally
 
@@ -88,7 +87,7 @@ Configuration is saved automatically and restored on next launch.
 ## 📝 Notes
 
 - Function keys may be handled by macOS media-key settings depending on your keyboard preferences.
-- Unsigned binaries/apps/pkg installers may show a Gatekeeper warning on first launch/install.
+- Unsigned binaries and apps may show a Gatekeeper warning on first launch.
 
 ## ☢️ Gaming / Anti-Cheat Disclaimer
 

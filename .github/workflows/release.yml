@@ -40,8 +40,10 @@ jobs:
 
           # Build a minimal .app bundle
           mkdir -p "dist/${APP_NAME}.app/Contents/MacOS"
+          mkdir -p "dist/${APP_NAME}.app/Contents/Resources"
           cp "dist/${BIN_NAME}" "dist/${APP_NAME}.app/Contents/MacOS/${BIN_NAME}"
           chmod +x "dist/${APP_NAME}.app/Contents/MacOS/${BIN_NAME}"
+          cp "Resources/AppIcon.icns" "dist/${APP_NAME}.app/Contents/Resources/AppIcon.icns"
 
           cat > "dist/${APP_NAME}.app/Contents/Info.plist" <<PLIST
           <?xml version="1.0" encoding="UTF-8"?>
@@ -62,6 +64,8 @@ jobs:
             <string>${VERSION}</string>
             <key>CFBundleExecutable</key>
             <string>MouseRebinderApp</string>
+            <key>CFBundleIconFile</key>
+            <string>AppIcon</string>
             <key>LSMinimumSystemVersion</key>
             <string>13.0</string>
             <key>NSAppleEventsUsageDescription</key>
@@ -70,28 +74,28 @@ jobs:
           </plist>
           PLIST
 
-          (cd dist && zip -r "MouseRebinder.app.zip" "${APP_NAME}.app")
-
-          # Build unsigned installer package (.pkg)
-          pkgbuild \
-            --component "dist/${APP_NAME}.app" \
-            --install-location "/Applications" \
-            --identifier "io.github.dratwa.mouse-rebinder" \
-            --version "${VERSION}" \
-            "dist/MouseRebinder-${VERSION}.pkg"
+          # Build drag-and-drop DMG
+          DMG_DIR="dist/dmg"
+          mkdir -p "${DMG_DIR}"
+          cp -R "dist/${APP_NAME}.app" "${DMG_DIR}/"
+          ln -s /Applications "${DMG_DIR}/Applications"
+          hdiutil create \
+            -volname "${APP_NAME}" \
+            -srcfolder "${DMG_DIR}" \
+            -ov \
+            -format UDZO \
+            "dist/MouseRebinder-${VERSION}.dmg"
 
           # Checksums
           shasum -a 256 \
             dist/MouseRebinder-macos-binary.zip \
-            dist/MouseRebinder.app.zip \
-            "dist/MouseRebinder-${VERSION}.pkg" > dist/SHA256SUMS.txt
+            "dist/MouseRebinder-${VERSION}.dmg" > dist/SHA256SUMS.txt
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
         with:
           files: |
             dist/MouseRebinder-macos-binary.zip
-            dist/MouseRebinder.app.zip
-            dist/*.pkg
+            dist/*.dmg
             dist/SHA256SUMS.txt
           generate_release_notes: true
